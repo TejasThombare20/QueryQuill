@@ -4,10 +4,10 @@ interface IUser {
   email: string;
   username: string;
   image: string | null;
-  stripeCustomerId: string | null;
-  stripeSubscriptionId: string | null;
-  stripePriceId: string | null;
-  stripeCurrentPeriodEnd: Date | null;
+  stripeCustomerId?: string | null;
+  stripeSubscriptionId?: string | null;
+  stripePriceId?: string | null;
+  stripeCurrentPeriodEnd?: Date | null;
 }
 
 const userSchema = new Schema<IUser>({
@@ -39,7 +39,7 @@ const userSchema = new Schema<IUser>({
     type: String,
   },
   stripeCurrentPeriodEnd: {
-    type: String,
+    type: Date,
   },
 });
 

@@ -52,7 +52,7 @@ const Navbar = () => {
               ) : (
                 <>
                   {provider &&
-                    Object.values(provider).map((provider) => (
+                    Object.values(provider).map((provider: any) => (
                       <button
                         type="button"
                         key={provider.name}

@@ -35,28 +35,28 @@ export async function getUserSubscriptionPlan() {
   }
 
   const isSubscribed = Boolean(
-    dbUser.stripePriceId  &&
-      dbUser.stripeCurrentPeriodEnd && // 86400000 = 1 day
-      dbUser.stripeCurrentPeriodEnd.getTime() + 86_400_000 > Date.now()
+    dbUser[0].stripePriceId  &&
+      dbUser[0].stripeCurrentPeriodEnd && // 86400000 = 1 day
+      dbUser[0].stripeCurrentPeriodEnd.getTime() + 86_400_000 > Date.now()
   );
 
   const plan = isSubscribed
-    ? PLANS.find((plan) => plan.price.priceIds.test === dbUser.stripePriceId)
+    ? PLANS.find((plan) => plan.price.priceIds.test === dbUser[0].stripePriceId)
     : null;
 
   let isCanceled = false;
-  if (isSubscribed && dbUser.stripeSubscriptionId) {
+  if (isSubscribed && dbUser[0].stripeSubscriptionId) {
     const stripePlan = await stripe.subscriptions.retrieve(
-      dbUser.stripeSubscriptionId
+      dbUser[0].stripeSubscriptionId
     );
     isCanceled = stripePlan.cancel_at_period_end;
   }
 
   return {
     ...plan,
-    stripeSubscriptionId: dbUser.stripeSubscriptionId,
-    stripeCurrentPeriodEnd: dbUser.stripeCurrentPeriodEnd,
-    stripeCustomerId: dbUser.stripeCustomerId,
+    stripeSubscriptionId: dbUser[0].stripeSubscriptionId,
+    stripeCurrentPeriodEnd: dbUser[0].stripeCurrentPeriodEnd,
+    stripeCustomerId: dbUser[0].stripeCustomerId,
     isSubscribed,
     isCanceled,
   };

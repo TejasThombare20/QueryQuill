@@ -15,7 +15,7 @@ interface PageProps {
 const page = async ({ params }: PageProps) => {
 
     const { fileId } = params
-    // console.log("fileId : ", fileId)
+    console.log("fileId : ", fileId)
     const session = await getServerSession(authoption)
 
     const user = session?.user

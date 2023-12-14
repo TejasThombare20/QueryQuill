@@ -61,7 +61,7 @@ export const appRouter = router({
         userId,
       });
 
-      //  console.log("file in getFile func " + file)
+       console.log("file in getFile func " + file)
 
       if (!file) throw new TRPCError({ code: "NOT_FOUND" });
 
@@ -155,6 +155,8 @@ export const appRouter = router({
       _id: userId,
     });
 
+    console.log("dbUser",dbUser)
+
     if (!dbUser) throw new TRPCError({ code: "UNAUTHORIZED" });
 
     const subscriptionPlan = await getUserSubscriptionPlan();
@@ -164,11 +166,12 @@ export const appRouter = router({
 
 
     if (subscriptionPlan.isSubscribed && dbUser.stripeCustomerId) {
+      // console.log("dbUser.stripeCustomerId", dbUser.stripeCustomerId)
       const stripeSession = await stripe.billingPortal.sessions.create({
         customer: dbUser.stripeCustomerId,
         return_url: billingUrl,
       });
-      console.log("hala 1.9")
+      // console.log("hala 1.9")
       return { url: stripeSession.url };
     }
     console.log("hala 2");

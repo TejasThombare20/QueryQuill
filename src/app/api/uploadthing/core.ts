@@ -35,13 +35,17 @@ const onUploadComplete = async ({
     url: string;
   };
 }) => {
+
+  console.log("hala Madrid")
   connectToDB();
 
-  const isFileExist = await Files.find({
-    key: file.key,
-  });
+  // const isFileExist = await Files.find({
+  //   key: file.key,
+  // });
 
-  if (isFileExist) return;
+  // if (isFileExist) return;
+
+  // console.log("isFileExist" ,isFileExist);
 
   const createdfile = await Files.create({
     key: file.key,
@@ -51,6 +55,7 @@ const onUploadComplete = async ({
     status: "PROCESSING",
   });
   await createdfile.save();
+  console.log("createdfile", createdfile)
 
   try {
     const response = await fetch(
@@ -113,7 +118,7 @@ export const ourFileRouter = {
   freePlanUploader: f({ pdf: { maxFileSize: "4MB" } })
     .middleware(middleware)
     .onUploadComplete(onUploadComplete),
-  proPlanUploader: f({ pdf: { maxFileSize: "4MB" } })
+  proPlanUploader: f({ pdf: { maxFileSize: "16MB" } })
     .middleware(middleware)
     .onUploadComplete(onUploadComplete),
 } satisfies FileRouter;

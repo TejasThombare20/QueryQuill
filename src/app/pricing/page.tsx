@@ -107,7 +107,7 @@ const page = async () => {
                       {plan}
                     </h3>
                     <p className="text-gray-500">{tagline}</p>
-                    <p className="my-5 text-6xl">{price}</p>
+                    <p className="my-5 text-6xl"> {plan === "Pro" && (<strong>₹ </strong> ) }{price}</p>
                     <p className="text-gray-500">per month</p>
                   </div>
 
@@ -175,7 +175,7 @@ const page = async () => {
                       <Link
                         href={user ? "/dashboard" : "/"}
                         className={buttonVariants({
-                          className: "w-fullull",
+                          className: "w-full",
                           variant: "secondary",
                         })}
                       >

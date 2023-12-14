@@ -147,6 +147,8 @@ export const appRouter = router({
     const billingUrl = absoluteUrl("/dashboard/billing");
 
     if (!userId) throw new TRPCError({ code: "UNAUTHORIZED" });
+
+    console.log("hala 0");
     connectToDB();
 
     const dbUser = await User.findOne({
@@ -156,15 +158,20 @@ export const appRouter = router({
     if (!dbUser) throw new TRPCError({ code: "UNAUTHORIZED" });
 
     const subscriptionPlan = await getUserSubscriptionPlan();
+
     console.log("hala ");
+    console.log("subscriptionPlan.isSubscribed", subscriptionPlan.isSubscribed)
+
+
     if (subscriptionPlan.isSubscribed && dbUser.stripeCustomerId) {
       const stripeSession = await stripe.billingPortal.sessions.create({
         customer: dbUser.stripeCustomerId,
         return_url: billingUrl,
       });
+      console.log("hala 1.9")
       return { url: stripeSession.url };
     }
-    console.log("hala 2")
+    console.log("hala 2");
 
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: billingUrl,
@@ -182,6 +189,9 @@ export const appRouter = router({
         userId: userId,
       },
     });
+
+    console.log("stripeSession.metadata",stripeSession.metadata);
+    console.log("url",stripeSession.url);
     return { url: stripeSession.url };
   }),
 });

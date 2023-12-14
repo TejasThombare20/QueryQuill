@@ -14,7 +14,11 @@ export async function getUserSubscriptionPlan() {
   const session = await getServerSession(authoption);
   const user = session?.user;
 
-  if (!user._id) {
+  // console.log("user" , user);
+
+
+
+  if (!user?.id) {
     return {
       ...PLANS[0],
       isSubscribed: false,
@@ -23,7 +27,9 @@ export async function getUserSubscriptionPlan() {
     };
   }
  connectToDB()
-  const dbUser  = await User.find({ _id: user._id });
+  const dbUser  = await User.find({ _id: user.id });
+  // console.log("dbUser", dbUser);
+ 
 
   if (!dbUser) {
     return {
@@ -33,12 +39,16 @@ export async function getUserSubscriptionPlan() {
       stripeCurrentPeriodEnd: null,
     };
   }
+  
+  // console.log("dbUser",dbUser);
 
   const isSubscribed = Boolean(
     dbUser[0].stripePriceId  &&
       dbUser[0].stripeCurrentPeriodEnd && // 86400000 = 1 day
       dbUser[0].stripeCurrentPeriodEnd.getTime() + 86_400_000 > Date.now()
   );
+
+  // console.log("isSubscribed", isSubscribed);
 
   const plan = isSubscribed
     ? PLANS.find((plan) => plan.price.priceIds.test === dbUser[0].stripePriceId)

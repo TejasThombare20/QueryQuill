@@ -30,13 +30,20 @@ export async function POST(request: Request) {
       status: 200,
     });
   }
+  
+  console.log("hello bhai kuch to javab do")
 
   if (event.type === "checkout.session.completed") {
     const subscription = await stripe.subscriptions.retrieve(
       session.subscription as string
     );
+
+    console.log("hello from strip")
     connectToDB();
-    await User.findByIdAndUpdate(
+
+    const subscribedUser = await User.find({_id : session.metadata.userId})
+    console.log("subscribedUser", subscribedUser)
+   const updatedUser =  await User.findByIdAndUpdate(
       { _id: session.metadata.userId },
       {
         stripeCustomerId: subscription.customer as string,
@@ -45,8 +52,14 @@ export async function POST(request: Request) {
         stripeCurrentPeriodEnd: new Date(
           subscription.current_period_end * 1000
         ),
-      }
+      },
+      { new: true } 
     );
+   
+    await updatedUser.save();
+
+    console.log("updatedUser", updatedUser);
+
   }
 
   if (event.type === "invoice.payment_succeeded") {

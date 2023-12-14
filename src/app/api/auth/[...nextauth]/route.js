@@ -13,6 +13,7 @@ const authoption = {
   ],
   callbacks: {
     async session({ session }) {
+      connectToDB();
       const sessionUser = await User.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
 

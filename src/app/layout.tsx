@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { cn } from '@/lib/utils'
+import { cn, constructMetaData } from '@/lib/utils'
 import Navbar from '@/components/Navbar'
 import Provider from '@/components/Provider'
 import { Toaster } from '@/components/ui/toaster'
@@ -12,10 +12,7 @@ import 'simplebar-react/dist/simplebar.min.css';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'QueryQuill',
-  description: 'lets talk with PDF and ask the question to it  ',
-}
+export const metadata = constructMetaData()
 
 export default function RootLayout({
   children,

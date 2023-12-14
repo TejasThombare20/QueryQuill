@@ -8,10 +8,13 @@ import { Button } from "./ui/button"
 import { useState } from "react"
 import PdfRender from "./PdfRender"
 import { format } from 'date-fns'
+import { getUserSubscriptionPlan } from "@/lib/stripe"
 
+interface PageProps {
+    subscriptionPlan : Awaited<ReturnType<typeof getUserSubscriptionPlan>>
+}
 
-
-const Dashboard = () => {
+const Dashboard = ({subscriptionPlan} : PageProps) => {
     const [currentlyDeletingFiles, setcurrentlyDeletingFiles] = useState<string | null>(null)
 
 
@@ -38,7 +41,7 @@ const Dashboard = () => {
                 <h1 className='mb-3 font-bold text-5xl text-gray-900'>
                     My Files
                 </h1>
-                <UploadButton />
+                <UploadButton isSubscribed={subscriptionPlan.isSubscribed} />
             </div>
 
             {/* display all files  */}

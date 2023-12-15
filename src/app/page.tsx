@@ -17,7 +17,7 @@ export default function Home() {
           Chat with your <span className="text-blue-600">Documnets</span> in
           seconds
         </h1>
-        <p className="mt-5 max-w-prose font-semibold text-zinc-600 sm:text-lg mx-2 ">
+        <p className="mt-5 max-w-prose font-semibold   dark:text-white text-zinc-500 sm:text-lg mx-2 ">
           QueryQuill allows you to have conversations with any PDF Documnet.
           Simply upload your file and start asking questions right away.
         </p>
@@ -85,10 +85,10 @@ export default function Home() {
       <div className="mx-auto mb-32 mt-32 max-w-5xl sm:mt-56">
         <div className="mb-12 px-6 lg:px-8">
           <div className="mx-auto max-w-2xl sm:text-center">
-            <h2 className="mt-2 font-bold text-4xl text-gray-800 sm:text-5xl ">
+            <h2 className="mt-2 font-bold text-4xl  dark:text-white text-gray-800 sm:text-5xl ">
               Start chatting in minute
             </h2>
-            <p className="mt-4 text-lg text-gray-600 ">
+            <p className="mt-4 text-lg dark:text-white/80 text-gray-600 ">
               Chatting to your files has never been easier than with QueryQuill.
             </p>
           </div>
@@ -103,7 +103,7 @@ export default function Home() {
                 {" "}
                 Sign up for an account
               </span>
-              <span className="mt-2 text-zinc-700">
+              <span className="mt-2 dark:text-white/80 text-zinc-700">
                 Either starting out with a free plan or choose our{" "}
                 <Link
                   className="text-blue-700 underline underline-offset-2"
@@ -122,7 +122,7 @@ export default function Home() {
                 {" "}
                 Upload your pdf file
               </span>
-              <span className="mt-2 text-zinc-700">
+              <span className="mt-2 dark:text-white/80 text-zinc-700">
                 We&apos;ll process your file and make it ready for you chat
                 with.
               </span>
@@ -136,7 +136,7 @@ export default function Home() {
                 {" "}
                 Start asking questions{" "}
               </span>
-              <span className="mt-2 text-zinc-700">
+              <span className="mt-2 dark:text-white/80 text-zinc-700">
                 It&apos;s that simple. Try out QueryQuill today - it really
                 takes less than a minute
               </span>

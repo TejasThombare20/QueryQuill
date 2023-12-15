@@ -78,7 +78,7 @@ const page = async () => {
       <MaxWidthWrapper className="mb-8 mt-24 text-center max-w-5xl">
         <div className="mx-auto mb-10 sm:max-w-lg ">
           <h1 className="text-6xl font-bold sm:text-7xl">Pricing</h1>
-          <p className="mt-5 text-gray-600 sm:text-lg">
+          <p className="mt-5 dark:text-white/80 text-gray-600 sm:text-lg">
             Whether you&apos;re just trying out our service or need more,
             we&apos;ve got you covered.
           </p>
@@ -103,17 +103,17 @@ const page = async () => {
                     </div>
                   )}
                   <div className="p-5">
-                    <h3 className="my-3 text-center text-3xl font-bold">
+                    <h3 className="my-3 text-center dark:text-black text-3xl font-bold">
                       {plan}
                     </h3>
-                    <p className="text-gray-500">{tagline}</p>
-                    <p className="my-5 text-6xl"> {plan === "Pro" && (<strong>₹ </strong> ) }{price}</p>
+                    <p className=" text-gray-500">{tagline}</p>
+                    <p className="my-5 dark:text-black text-6xl"> {plan === "Pro" && (<strong>₹ </strong> ) }{price}</p>
                     <p className="text-gray-500">per month</p>
                   </div>
 
                   <div className="flex h-20 items-center justify-center border-b border-t border-gray-200 bg-gray-50">
                     <div className="flex items-center space-x-1">
-                      <p className="">
+                      <p className="dark:text-black">
                         {" "}
                         {quota.toLocaleString()} PDF/mo included
                       </p>

@@ -10,7 +10,7 @@ const Logoutbutton = () => {
         signOut();
       }}
       variant="default"
-      className="rounded-md"
+      className="rounded-md font-semibold text-zinc-900"
     >
       Sign Out
     </Button>

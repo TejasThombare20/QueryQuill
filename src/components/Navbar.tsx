@@ -1,67 +1,75 @@
-import MaxWidthWrapper from "./MaxWidthWrapper";
-import Link from "next/link";
-import { Button, buttonVariants } from "./ui/button";
-import UserAccountNav from "./UserAccountNav";
-import { getServerSession } from "next-auth";
-import { authoption } from "@/app/api/auth/[...nextauth]/route";
-import LoginButton from "./LoginButton";
-import Logoutbutton from "./Logoutbutton";
-import MobileNav from "./MobileNav";
+  import MaxWidthWrapper from "./MaxWidthWrapper";
+  import Link from "next/link";
+  import { Button, buttonVariants } from "./ui/button";
+  import UserAccountNav from "./UserAccountNav";
+  import { getServerSession } from "next-auth";
+  import { authoption } from "@/app/api/auth/[...nextauth]/route";
+  import LoginButton from "./LoginButton";
+  import Logoutbutton from "./Logoutbutton";
+  import MobileNav from "./MobileNav";
+  import { DarkModeToggle } from "./DarkmodeToggle";
+  import { cn } from "@/lib/utils";
 
-const Navbar = async () => {
-  const session = await getServerSession(authoption);
+  const Navbar = async () => {
+    const session = await getServerSession(authoption);
 
-  const user = session?.user;
+    const user = session?.user;
+  
 
-  return (
-    <nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all  ">
-      <MaxWidthWrapper>
-        <div className="flex h-14 items-center justify-between border-b  border-zinc-200  ">
-          <Link href="/" className="flex z-40 font-semibold ">
-            <span>QueryQuill</span>
-          </Link>
 
-          <MobileNav isAuth={!!user} />
+    return (
+      <nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b dark:border-gray-700 border-gray-200 dark:bg-white bg-white/75 backdrop-blur-lg transition-all  ">
+        <MaxWidthWrapper>
+          <div className="flex h-14 items-center justify-between border-b  border-zinc-200  ">
+            <Link href="/" className="flex z-40 font-semibold dark:text-zinc-950 ">
+              <span>QueryQuill</span>
+            </Link>
 
-          <div className="hidden items-center space-x-4 sm:flex ">
-            {!user ? (
-              <>
-                <Link
-                  href="/pricing"
-                  className={buttonVariants({
-                    variant: "ghost",
-                    size: "sm",
-                  })}
-                >
-                  Pricing
-                </Link>
+            <MobileNav isAuth={!!user} />
 
-                <LoginButton />
-              </>
-            ) : (
-              <>
-                <Link
-                  href={"/dashboard"}
-                  className={buttonVariants({
-                    variant: "ghost",
-                    size: "sm",
-                  })}
-                >
-                  Dashboard
-                </Link>
-                <UserAccountNav
-                  name={user?.name ?? "Welcome !"}
-                  email={user?.email ?? ""}
-                  imageURL={user.image ?? ""}
-                />
-                <Logoutbutton />
-              </>
-            )}
+            <div className="hidden items-center space-x-4 sm:flex ">
+              {!user ? (
+                <>
+                  <Link
+                    href="/pricing"
+                    className={buttonVariants({
+                      variant: "ghost",
+                      size: "sm",
+                      className : "text-zinc-900 font-semibold"
+                      
+                    })}
+                  >
+                    Pricing
+                  </Link>
+
+                  <LoginButton />
+                </>
+              ) : (
+                <>
+                  <Link
+                    href={"/dashboard"}
+                    className={buttonVariants({
+                      variant: "ghost",
+                      size: "sm",
+                      className : "text-zinc-900 font-semibold"
+                    })}
+                  >
+                    Dashboard
+                  </Link>
+                  <UserAccountNav
+                    name={user?.name ?? "Welcome !"}
+                    email={user?.email ?? ""}
+                    imageURL={user.image ?? ""}
+                  />
+                  <Logoutbutton />
+                </>
+              )}
+            <DarkModeToggle/>
+            </div>
           </div>
-        </div>
-      </MaxWidthWrapper>
-    </nav>
-  );
-};
+        </MaxWidthWrapper>
+      </nav>
+    );
+  };
 
-export default Navbar;
+  export default Navbar;

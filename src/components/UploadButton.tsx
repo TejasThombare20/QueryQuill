@@ -106,7 +106,7 @@ const UploadDropZone = ({ isSubscribed }: { isSubscribed: boolean }) => {
                   <div className="px-3 py-2  h-full grid place-items-center">
                     <File className="h-4 w-4 text-blue-400" />
                   </div>
-                  <div className="px-3 py-2 h-full text-sm truncate">
+                  <div className="px-3 py-2 h-full dark:text-black text-sm truncate">
                     {acceptedFiles[0].name}
                   </div>
                 </div>

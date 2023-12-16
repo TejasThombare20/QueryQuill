@@ -13,11 +13,15 @@ const authoption = {
   ],
   callbacks: {
     async session({ session }) {
-      connectToDB();
-      const sessionUser = await User.findOne({ email: session.user.email });
-      session.user.id = sessionUser._id.toString();
+      try {
+        await connectToDB();
+        const sessionUser = await User.findOne({ email: session.user.email });
+        session.user.id = sessionUser._id.toString();
 
-      return session;
+        return session;
+      } catch (error) {
+        console.log("error in session callback : ", error);
+      }
     },
 
     async signIn({ profile }) {
@@ -30,15 +34,18 @@ const authoption = {
 
         //  if not then create a new user
         if (!userExist) {
+        //   const stripeCustomerId = profile.stripeCustomerId || null;
+
           await User.create({
             email: profile.email,
             username: profile.name.replace(" ", "").toLowerCase(),
             image: profile.picture,
+            // stripeCustomerId: stripeCustomerId,
           });
         }
         return true;
       } catch (error) {
-        console.log(Error);
+        console.log("error in signIn function", error);
       }
     },
   },
@@ -46,4 +53,4 @@ const authoption = {
 
 const handler = NextAuth(authoption);
 
-export { handler as GET, handler as POST ,authoption };
+export { handler as GET, handler as POST, authoption };
